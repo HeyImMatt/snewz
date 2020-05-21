@@ -20,6 +20,7 @@ export async function getNews(params = '') {
     responseData.articles.forEach(el => {
       let article = {
         title: el.title,
+        source: el.source.name,
         description: el.description,
         url: el.url,
         urlToImage: el.urlToImage

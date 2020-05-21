@@ -1,8 +1,7 @@
 import * as newsAPI from './newsapi.js';
+import {getDummyData} from './dummydata.js'
 import { allSources } from './sources.js';
 
-let sources = 'nhl-news,new-scientist';
+//newsAPI.getNews();
 
-//newsAPI.search(sources);
-
-newsAPI.getNews();
+getDummyData();
