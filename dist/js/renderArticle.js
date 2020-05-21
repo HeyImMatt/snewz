@@ -1,6 +1,6 @@
 export function renderArticle(article) {
   const articleDiv = document.createElement('div');
-  articleDiv.className = 'card';
+  articleDiv.className = 'card h-25';
   articleDiv.innerHTML = `
   <div class="card-body">
     <img class="card-img-top" src="${article.urlToImage}" alt="Article Image">
@@ -9,5 +9,5 @@ export function renderArticle(article) {
     <a href="${article.url}" class="card-link">Go To Article</a>
   </div>
   `;
-  document.body.appendChild(articleDiv);
+  document.getElementById("headline-articles").appendChild(articleDiv);
 }
