@@ -14,7 +14,7 @@ export function sendHttpRequest(url) {
 export async function getNews(params = '') {
   try {
     const responseData = await sendHttpRequest(
-      `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=54d6e4440c29487eaef2ff9e3c210148`,
+      `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=54d6e4440c29487eaef2ff9e3c210148`,
     );
     console.log(responseData);
     responseData.articles.forEach(el => {
