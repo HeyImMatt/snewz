@@ -1,5 +1,7 @@
 import { renderArticle } from '../public/scripts/renderArticle.js';
 
+const apiKey = process.env.apiKey;
+
 export function sendHttpRequest(url) {
   return fetch(url).then(
     (response) => {
@@ -14,7 +16,7 @@ export function sendHttpRequest(url) {
 export async function getNews(params = '') {
   try {
     const responseData = await sendHttpRequest(
-      `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=54d6e4440c29487eaef2ff9e3c210148`,
+      `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=${apiKey}`,
     );
     console.log(responseData);
     responseData.articles.forEach((el) => {
