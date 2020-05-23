@@ -1,8 +1,9 @@
-import { renderArticle } from '../public/scripts/renderArticle.js';
+//import { renderArticle } from '../public/scripts/renderArticle.js';
 
+const fetch = require('node-fetch')
 const apiKey = process.env.NEWSAPI_API_KEY;
 
-export function sendHttpRequest(url) {
+function sendHttpRequest(url) {
   return fetch(url).then(
     (response) => {
       return response.json();
@@ -13,7 +14,7 @@ export function sendHttpRequest(url) {
   );
 }
 
-export async function getNews(params = '') {
+async function getNews(params = '') {
   try {
     const responseData = await sendHttpRequest(
       `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=${apiKey}`,
@@ -27,14 +28,14 @@ export async function getNews(params = '') {
         url: el.url,
         urlToImage: el.urlToImage,
       };
-      renderArticle(article);
+      // renderArticle(article);
     });
   } catch (error) {
-    alert(`Error: ${error}`);
+    console.log(`Error: ${error}`);
   }
 }
 
-export function search() {
+//export function search() {
   //queries is an array you need to iterate through
   //if there are sources selected, you can't mix in country or category
   // const country = 'us';
@@ -44,4 +45,6 @@ export function search() {
   // } else params = `${country}&`
   // console.log(params)
   //getNews(params);
-}
+//}
+
+exports.getNews = getNews();
