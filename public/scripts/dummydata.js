@@ -304,4 +304,4 @@ export function getDummyData() {
     });
   }
 //URL for dummy data:
-// https://newsapi.org/v2/everything?q=-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic&from=2020-05-21&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,cnn,fortune,hacker-news,nbc-news,new-scientist,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=54d6e4440c29487eaef2ff9e3c210148
+// https://newsapi.org/v2/everything?q=-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic&from=2020-05-21&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,cnn,fortune,hacker-news,nbc-news,new-scientist,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=
