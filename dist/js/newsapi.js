@@ -1,4 +1,4 @@
-import { renderArticle } from './renderArticle.js'
+import { renderArticle } from '../public/scripts/renderArticle.js';
 
 export function sendHttpRequest(url) {
   return fetch(url).then(
@@ -14,17 +14,17 @@ export function sendHttpRequest(url) {
 export async function getNews(params = '') {
   try {
     const responseData = await sendHttpRequest(
-      `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=54d6e4440c29487eaef2ff9e3c210148`,
+      `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=54d6e4440c29487eaef2ff9e3c210148`,
     );
     console.log(responseData);
-    responseData.articles.forEach(el => {
+    responseData.articles.forEach((el) => {
       let article = {
         title: el.title,
         source: el.source.name,
         description: el.description,
         url: el.url,
-        urlToImage: el.urlToImage
-      }
+        urlToImage: el.urlToImage,
+      };
       renderArticle(article);
     });
   } catch (error) {
