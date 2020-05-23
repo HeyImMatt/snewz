@@ -1,6 +1,6 @@
 import { renderArticle } from '../public/scripts/renderArticle.js';
 
-const apiKey = process.env.newsApiKey;
+const apiKey = process.env.NEWSAPI_API_KEY;
 
 export function sendHttpRequest(url) {
   return fetch(url).then(
