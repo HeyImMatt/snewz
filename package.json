@@ -2,7 +2,7 @@
   "name": "snewz",
   "version": "1.0.0",
   "description": "snewz app",
-  "main": "./dist/js/app.js",
+  "main": "./src/js/app.js",
   "engines": {
     "node": "14.2.0"
   },
