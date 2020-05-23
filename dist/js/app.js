@@ -1,15 +1,18 @@
 require('dotenv').config();
 
 const express = require('express');
+const helmet = require('helmet')
+const path = require('path');
+const homeRoutes = require('../routes/home.js');
 
 const app = express();
 
-app.use(express.static('public'));
+app.use(helmet());
 
-app.use('/', (req, res, next) => {
-  res.sendFile('index.html', {root: 'public'})
-})
+app.use(express.static(path.join(__dirname, '../..', 'public')));
 
-app.listen(3000, () =>{
+app.use(homeRoutes);
+
+app.listen(process.env.PORT || 3000, () => {
   console.log('Listening on port 3000');
-})
+});
