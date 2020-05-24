@@ -1,16 +1,16 @@
 const fetch = require('node-fetch');
 const apiKey = process.env.NEWSAPI_API_KEY;
+
+const today = new Date();
+const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
 let articles = [];
 
 exports.renderArticles = (req, res, next) => {
   getNews().then(() => {
-    console.log('Rendering Articles');
-    res.render('articles', { articles: articles });
+    console.log(articles);
+    res.render('index', {articles: articles})
   });
-};
-
-exports.filterArticles = (req, res, next) => {
-  // code here?
 };
 
 function sendHttpRequest(url) {
@@ -27,7 +27,9 @@ function sendHttpRequest(url) {
 async function getNews(params = '') {
   try {
     const responseData = await sendHttpRequest(
-      `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=${apiKey}`,
+      // Use this link for headlines
+      //`https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=${apiKey}`,
+      `https://newsapi.org/v2/everything?q=-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic&from=${date}&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,cnn,fortune,hacker-news,nbc-news,new-scientist,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=${apiKey}`,
     );
     console.log('getNews called');
     articles = [];
