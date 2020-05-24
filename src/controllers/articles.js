@@ -8,7 +8,6 @@ let articles = [];
 
 exports.renderArticles = (req, res, next) => {
   getNews().then(() => {
-    console.log(articles);
     res.render('index', {articles: articles})
   });
 };
@@ -33,6 +32,7 @@ async function getNews(params = '') {
     );
     console.log('getNews called');
     articles = [];
+    console.log(responseData.articles)
     responseData.articles.forEach((el) => {
       let article = {
         title: el.title,
