@@ -7,8 +7,4 @@ const router = express.Router();
 
 router.use('/', articlesController.renderArticles);
 
-// router.use('/', (req, res, next) => {
-//   res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
-// });
-
 module.exports = router;

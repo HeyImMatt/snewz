@@ -19,7 +19,7 @@ function sendHttpRequest(url) {
       return response.json();
     },
     (reject) => {
-      alert(`Rejected: ${reject}`);
+      console.log(`Rejected: ${reject}`);
     },
   );
 }
@@ -29,6 +29,8 @@ async function getNews(params = '') {
     const responseData = await sendHttpRequest(
       `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=${apiKey}`,
     );
+    console.log('getNews called');
+    articles = [];
     responseData.articles.forEach((el) => {
       let article = {
         title: el.title,
@@ -39,7 +41,6 @@ async function getNews(params = '') {
       };
       articles.push(article);
     });
-    console.log('getNews called');
   } catch (error) {
     console.log(`Error: ${error}`);
   }
