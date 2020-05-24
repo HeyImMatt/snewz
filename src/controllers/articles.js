@@ -16,6 +16,7 @@ exports.renderArticles = (req, res, next) => {
 function sendHttpRequest(url) {
   return fetch(url).then(
     (response) => {
+      console.log(response)
       return response.json();
     },
     (reject) => {
@@ -28,8 +29,8 @@ async function getNews(params = '') {
   try {
     const responseData = await sendHttpRequest(
       // Use this link for headlines
-      `https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=${apiKey}`,
-      //`https://newsapi.org/v2/everything?q=-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic&from=${date}&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,cnn,fortune,hacker-news,nbc-news,new-scientist,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=${apiKey}`,
+      //`https://newsapi.org/v2/top-headlines?country=us&${params}apiKey=${apiKey}`,
+      `https://newsapi.org/v2/everything?q=-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic&from=${date}&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,cnn,fortune,hacker-news,nbc-news,new-scientist,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=${apiKey}`,
     );
     console.log('getNews called');
     articles = [];
