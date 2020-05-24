@@ -1,6 +1,6 @@
-// import * as newsAPI from '../dist/js/newsapi.js';
+// import * as newsAPI from '../src/js/newsapi.js';
 import {getDummyData} from './dummydata.js'
-// import { allSources } from '../dist/js/sources.js';
+// import { allSources } from '../src/js/sources.js';
 
 //newsAPI.getNews();
 
