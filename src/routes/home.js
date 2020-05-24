@@ -1,10 +1,9 @@
 const path = require('path');
 const express = require('express');
+const articlesController = require ('../controllers/articles')
 
 const router = express.Router();
 
-router.use('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-});
+router.get('/', articlesController.renderArticles);
 
 module.exports = router;
