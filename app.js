@@ -1,4 +1,4 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 const express = require('express');
 const helmet = require('helmet')
@@ -17,5 +17,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(homeRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Listening on port 3000');
 });
