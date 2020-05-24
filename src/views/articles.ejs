@@ -8,17 +8,13 @@
   <title>snewzzz...</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <!-- <script type="module" src="./src/js/newsapi.js"></script> -->
-  <script type="module" src="./scripts/dummydata.js"></script>
-  <script type="module" src="./scripts/renderArticle.js"></script>
-  <!-- <script type="module" src="./src/js/sources.js"></script> -->
-  <script type="module" src="./scripts/main.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <nav class="navbar fixed-top navbar-dark bg-dark">
   <span class="navbar-brand mb-o h1">snewzzz...</span>
 </nav>
+
 <body>
   <div class="container">
     <div class="row">
@@ -40,7 +36,23 @@
       </div>
     </div>
   </div>
-  <div id="headline-articles" class="card-columns"></div>
+  <%if (articles.length > 0) {%>
+  <div id="headline-articles" class="card-columns">
+    <%for (let article of articles) {%>
+    <div class="card">
+      <div class="card-body">
+        <% if (article.urlToImage) {%><img class="card-img-top" src="<%=article.urlToImage%>"
+          alt="Article Image"><%} else ''%>
+        <h5 class="card-title"><%=article.title%></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%=article.source%></h6>
+        <p class="card-text"><%=article.description%></p>
+        <a href="<%=article.url%>" target="_blank" class="card-link">Read Full Article</a>
+      </div>
+    </div>
+    <%}%>
+  <%} else {%>
+    <h3>No articles to render</h3>
+    <%}%>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

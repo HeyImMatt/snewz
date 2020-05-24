@@ -8,7 +8,8 @@ const homeRoutes = require('../routes/home.js');
 
 const app = express();
 
-newsApiData.getNews;
+app.set('view engine', 'ejs');
+app.set('views', './src/views')
 
 app.use(helmet());
 
