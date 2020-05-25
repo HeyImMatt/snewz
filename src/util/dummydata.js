@@ -1,4 +1,4 @@
-import {renderArticle} from './renderArticle.js';
+import {renderArticle} from '../../public/scripts/renderArticle.js';
 
 const dummyData = {
   status: 'ok',
@@ -303,5 +303,5 @@ export function getDummyData() {
       renderArticle(article);
     });
   }
-//URL for dummy data:
-// https://newsapi.org/v2/everything?q=-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic&from=2020-05-21&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,cnn,fortune,hacker-news,nbc-news,new-scientist,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=
+  //use below for dummy data
+  //res.render('index', { articles: dummyData, filters: {snoozetrump: 'on', snoozecovid: 'on'} });
