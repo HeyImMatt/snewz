@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.get('/', articlesController.renderArticles);
 
+router.post('/', articlesController.filterArticles);
+
 module.exports = router;
