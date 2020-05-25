@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card" id="snooze-form">
+        <div class="card-body">
+          <h5 class="card-title">Snooze news about...</h5>
+          <form action="/" method="POST">
+            <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="trump-news" name="snoozetrump" <%= !filters.snoozetrump ? "" : "checked" %>>
+              <label class="form-check-label" for="trump-news">Trump</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="covid-news" name="snoozecovid"<%= !filters.snoozecovid ? "" : "checked" %>>
+              <label class="form-check-label" for="covid-news">Coronavirus</label>
+            </div>
+            <button type="submit" id="filter-button" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
