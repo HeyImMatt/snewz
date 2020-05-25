@@ -3,7 +3,7 @@ const apiKey = process.env.NEWSAPI_API_KEY;
 
 const today = new Date();
 const date =
-  today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  today.getUTCFullYear + '-' + (today.getUTCMonth() + 1) + '-' + today.getUTCDate();
 
 let articles = [];
 
