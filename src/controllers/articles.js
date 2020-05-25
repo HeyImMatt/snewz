@@ -9,7 +9,6 @@ let articles = [];
 
 exports.renderArticles = (req, res, next) => {
   getNews('-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic').then(() => {
-    console.log('rendering articles')
     res.render('index', { articles: articles, filters: {snoozetrump: 'on', snoozecovid: 'on'} });
   });
 };
@@ -39,7 +38,6 @@ exports.filterArticles = (req, res, next) => {
 function sendHttpRequest(url) {
   return fetch(url).then(
     (response) => {
-      console.log(response)
       return response.json();
     },
     (reject) => {
