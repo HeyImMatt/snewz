@@ -39,6 +39,7 @@ exports.filterArticles = (req, res, next) => {
 function sendHttpRequest(url) {
   return fetch(url).then(
     (response) => {
+      console.log(response)
       return response.json();
     },
     (reject) => {
