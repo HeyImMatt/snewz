@@ -1,10 +1,9 @@
-//require('dotenv').config();
-
 const express = require('express');
 const helmet = require('helmet')
 const path = require('path');
 const bodyParser = require('body-parser');
 const homeRoutes = require('./src/routes/home.js');
+const mongoConnect = require('./src/util/database').mongoConnect;
 
 const app = express();
 
@@ -17,5 +16,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(homeRoutes);
 
-app.listen(process.env.PORT || 3000, () => {
-});
+// app.listen(process.env.PORT || 3000, () => {
+// });
+
+mongoConnect( () => {
+  app.listen(process.env.PORT || 3000)
+})

@@ -70,7 +70,6 @@ async function getNews(params) {
         : await sendHttpRequest(
             `https://newsapi.org/v2/everything?q=${params}&from=${date}&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,nbc-news,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=${apiKey}`,
           );
-    Article.clearSavedArticles();
     responseData.articles.forEach((el) => {
       const article = new Article(
         el.title,
@@ -79,7 +78,7 @@ async function getNews(params) {
         el.url,
         el.urlToImage,
       );
-      article.save();
+      //article.save(el.title);
     });
   } catch (error) {
     console.log(`Error: ${error}`);
