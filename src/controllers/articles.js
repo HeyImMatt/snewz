@@ -14,13 +14,9 @@ const date =
 exports.renderArticles = (req, res, next) => {
   getNews(
     '-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic',
-  ).then(() => {
-    const articles = Article.fetchAllSaved();
-    res.render('index', {
-      articles: articles,
-      filters: { snoozetrump: 'on', snoozecovid: 'on' },
-    });
-  });
+    res,
+    { snoozetrump: 'on', snoozecovid: 'on' },
+  );
 };
 
 exports.filterArticles = (req, res, next) => {
@@ -28,25 +24,14 @@ exports.filterArticles = (req, res, next) => {
   if (filters.snoozetrump && filters.snoozecovid) {
     getNews(
       '-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic',
-    ).then(() => {
-      const articles = Article.fetchAllSaved();
-      res.render('index', { articles: articles, filters: filters });
-    });
+      res,
+      filters,
+    );
   } else if (filters.snoozetrump === 'on') {
-    getNews('-trump%20-trump%27s').then(() => {
-      const articles = Article.fetchAllSaved();
-      res.render('index', { articles: articles, filters: filters });
-    });
+    getNews('-trump%20-trump%27s', res, filters);
   } else if (filters.snoozecovid === 'on') {
-    getNews('-coronavirus%20-covid19%20-covid-19%20-pandemic').then(() => {
-      const articles = Article.fetchAllSaved();
-      res.render('index', { articles: articles, filters: filters });
-    });
-  } else
-    getNews('all').then(() => {
-      const articles = Article.fetchAllSaved();
-      res.render('index', { articles: articles, filters: filters });
-    });
+    getNews('-coronavirus%20-covid19%20-covid-19%20-pandemic', res, filters);
+  } else getNews('all', res, filters);
 };
 
 function sendHttpRequest(url) {
@@ -60,7 +45,7 @@ function sendHttpRequest(url) {
   );
 }
 
-async function getNews(params) {
+async function getNews(params, res, filters) {
   try {
     const responseData =
       params === 'all'
@@ -70,18 +55,29 @@ async function getNews(params) {
         : await sendHttpRequest(
             `https://newsapi.org/v2/everything?q=${params}&from=${date}&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,nbc-news,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=${apiKey}`,
           );
-    Article.clearSavedArticles();
-    responseData.articles.forEach((el) => {
-      const article = new Article(
-        el.title,
-        el.source.name,
-        el.description,
-        el.url,
-        el.urlToImage,
-      );
-      article.save();
+    Article.fetchAllSaved().then((articles) => {
+      responseData.articles.forEach((el) => {
+        const article = new Article(
+          el.title,
+          el.source.name,
+          el.description,
+          el.url,
+          el.urlToImage,
+        );
+        if (
+          articles.filter(function (e) {
+            return e.title === article.title;
+          }).length > 0
+        ) {
+          console.log('article in db ');
+        } else article.save();
+      });
     });
   } catch (error) {
     console.log(`Error: ${error}`);
+  } finally {
+    Article.fetchAllSaved().then((articles) => {
+      res.render('index', { articles: articles, filters: filters });
+    });
   }
 }
