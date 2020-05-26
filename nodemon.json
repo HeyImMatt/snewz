@@ -1,5 +1,8 @@
 {
   "env": {
-    "NEWSAPI_API_KEY" : "6662a2cd6fb647988dcbd8cb207eed71"
+    "NEWSAPI_API_KEY" : "6662a2cd6fb647988dcbd8cb207eed71",
+    "MONGO_DB_USERNAME": "mrmcfarland",
+    "MONGO_DB_PASSWORD": "JTuAkAmSZ9TZSRZ8",
+    "MONGO_DB_URL": "mongodb+srv://mrmcfarland:JTuAkAmSZ9TZSRZ8@cluster0-tpguw.mongodb.net/test?retryWrites=true&w=majority"
   }
 }
