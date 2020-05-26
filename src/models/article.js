@@ -1,12 +1,13 @@
 const getDb = require('../util/database').getDb;
 
 module.exports = class Article {
-  constructor(title, source, description, url, urlToImage) {
+  constructor(title, source, description, url, urlToImage, tags) {
     this.title = title;
     this.source = source;
     this.description = description;
     this.url = url;
     this.urlToImage = urlToImage;
+    this.tags = tags;
   }
 
   save() {
@@ -26,6 +27,20 @@ module.exports = class Article {
     return db
       .collection('articles')
       .find()
+      .toArray()
+      .then((articles) => {
+        return articles;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  static fetchFilteredArticles(tags) {
+    const db = getDb();
+    return db
+      .collection('articles')
+      .find({tags: tags})
       .toArray()
       .then((articles) => {
         return articles;
