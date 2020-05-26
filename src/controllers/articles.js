@@ -16,6 +16,7 @@ exports.renderArticles = (req, res, next) => {
     '-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic',
     res,
     { snoozetrump: 'on', snoozecovid: 'on' },
+    ['snoozetrump', 'snoozecovid'],
   );
 };
 
@@ -26,11 +27,14 @@ exports.filterArticles = (req, res, next) => {
       '-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic',
       res,
       filters,
+      ['snoozetrump', 'snoozecovid'],
     );
   } else if (filters.snoozetrump === 'on') {
-    getNews('-trump%20-trump%27s', res, filters);
+    getNews('-trump%20-trump%27s', res, filters, ['snoozetrump']);
   } else if (filters.snoozecovid === 'on') {
-    getNews('-coronavirus%20-covid19%20-covid-19%20-pandemic', res, filters);
+    getNews('-coronavirus%20-covid19%20-covid-19%20-pandemic', res, filters, [
+      'snoozecovid',
+    ]);
   } else getNews('all', res, filters);
 };
 
@@ -45,7 +49,7 @@ function sendHttpRequest(url) {
   );
 }
 
-async function getNews(params, res, filters) {
+async function getNews(params, res, filters, tags) {
   try {
     const responseData =
       params === 'all'
@@ -55,29 +59,32 @@ async function getNews(params, res, filters) {
         : await sendHttpRequest(
             `https://newsapi.org/v2/everything?q=${params}&from=${date}&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,nbc-news,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=${apiKey}`,
           );
-    Article.fetchAllSaved().then((articles) => {
-      responseData.articles.forEach((el) => {
-        const article = new Article(
-          el.title,
-          el.source.name,
-          el.description,
-          el.url,
-          el.urlToImage,
-        );
-        if (
-          articles.filter(function (e) {
-            return e.title === article.title;
-          }).length > 0
-        ) {
-          console.log('article in db ');
-        } else article.save();
+    Article.fetchAllSaved()
+      .then((articles) => {
+        responseData.articles.forEach((el) => {
+          const article = new Article(
+            el.title,
+            el.source.name,
+            el.description,
+            el.url,
+            el.urlToImage,
+            tags,
+          );
+          if (
+            articles.filter(function (e) {
+              return e.title === article.title;
+            }).length > 0
+          ) {
+            console.log('article in db ');
+          } else article.save();
+        });
+      })
+      .then(() => {
+        Article.fetchFilteredArticles(tags).then((articles) => {
+          res.render('index', { articles: articles, filters: filters });
+        });
       });
-    });
   } catch (error) {
     console.log(`Error: ${error}`);
-  } finally {
-    Article.fetchAllSaved().then((articles) => {
-      res.render('index', { articles: articles, filters: filters });
-    });
   }
 }
