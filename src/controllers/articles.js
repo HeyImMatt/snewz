@@ -10,14 +10,28 @@ const currentDate =
   (today.getUTCMonth() + 1) +
   '-' +
   today.getUTCDate();
+let lastSnoozedApiCallTime;
 
 exports.renderArticles = (req, res, next) => {
-  getNews(
-    '-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic',
-    res,
-    { snoozetrump: 'on', snoozecovid: 'on' },
-    ['snoozetrump', 'snoozecovid'],
-  );
+  const filters = { snoozetrump: 'on', snoozecovid: 'on' };
+  const tags = ['snoozetrump', 'snoozecovid'];
+  if (
+    typeof lastSnoozedApiCallTime === 'undefined' ||
+    Date.now() > (lastSnoozedApiCallTime + 1200000)
+  ) {
+    getNews(
+      '-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic',
+      res,
+      filters,
+      tags,
+    );
+    lastSnoozedApiCallTime = Date.now();
+  } else {
+    console.log('Rendering articles from db')
+    Article.fetchFilteredArticles(tags).then((articles) => {
+      res.render('index', { articles: articles, filters: filters });
+    });
+  }
 };
 
 exports.filterArticles = (req, res, next) => {
