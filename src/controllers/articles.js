@@ -76,7 +76,7 @@ async function getNews(params, res, filters, tags) {
               return e.title === article.title;
             }).length > 0
           ) {
-            console.log('article in db ' + el.publishedAt);
+            console.log('article in db');
           } else article.save();
         });
       })
