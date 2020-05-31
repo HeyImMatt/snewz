@@ -10,14 +10,14 @@ const currentDate =
   (today.getUTCMonth() + 1) +
   '-' +
   today.getUTCDate();
-let lastApiCallTime;
+let lastSnoozedApiCallTime;
 
 exports.renderArticles = (req, res, next) => {
   const filters = { snoozetrump: 'on', snoozecovid: 'on' };
   const tags = ['snoozetrump', 'snoozecovid'];
   if (
-    typeof lastApiCallTime === 'undefined' ||
-    Date.now() > (lastApiCallTime + 1200000)
+    typeof lastSnoozedApiCallTime === 'undefined' ||
+    Date.now() > (lastSnoozedApiCallTime + 1200000)
   ) {
     getNews(
       '-trump%20-trump%27s%20-coronavirus%20-covid19%20-covid-19%20-pandemic',
@@ -25,7 +25,7 @@ exports.renderArticles = (req, res, next) => {
       filters,
       tags,
     );
-    lastApiCallTime = Date.now();
+    lastSnoozedApiCallTime = Date.now();
   } else {
     console.log('Rendering articles from db')
     Article.fetchFilteredArticles(tags).then((articles) => {
