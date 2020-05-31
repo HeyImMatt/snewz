@@ -5,7 +5,7 @@
     let displayDate = article.publishDate.slice(0, 10).slice(5, 10) + '-' + year; %>
   <div class="card">
     <div class="card-body">
-      <% if (article.urlToImage && article.urlToImage !== 'null') { %><img class="card-img-top" src="<%= article.urlToImage %>"
+      <% if (article.urlToImage && article.urlToImage !== 'null' && article.urlToImage.endsWith('m') === false) { %><img class="card-img-top" src="<%= article.urlToImage %>"
         alt="Article Image"><% } else '' %>
       <h5 class="card-title"><%= article.title %></h5>
       <h6 class="card-subtitle mb-2 text-muted"><%= article.source %></h6>
