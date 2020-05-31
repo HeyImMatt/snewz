@@ -1,12 +1,13 @@
 const getDb = require('../util/database').getDb;
 
 module.exports = class Article {
-  constructor(title, source, description, url, urlToImage, tags) {
+  constructor(title, source, description, url, urlToImage, publishDate, tags) {
     this.title = title;
     this.source = source;
     this.description = description;
     this.url = url;
     this.urlToImage = urlToImage;
+    this.publishDate = publishDate;
     this.tags = tags;
   }
 
