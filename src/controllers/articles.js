@@ -4,8 +4,8 @@ const apiKey = process.env.NEWSAPI_API_KEY;
 const Article = require('../models/article');
 
 const today = new Date();
-const date =
-  today.getUTCFullYear +
+const currentDate =
+  today.getUTCFullYear() +
   '-' +
   (today.getUTCMonth() + 1) +
   '-' +
@@ -57,7 +57,7 @@ async function getNews(params, res, filters, tags) {
             `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`,
           )
         : await sendHttpRequest(
-            `https://newsapi.org/v2/everything?q=${params}&from=${date}&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,nbc-news,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&sortBy=relevancy&apiKey=${apiKey}`,
+            `https://newsapi.org/v2/everything?q=${params}&from=${currentDate}&pageSize=50&language=en&sources=abc-news,al-jazeera-english,associated-press,axios,bloomberg,cbs-news,cnbc,nbc-news,newsweek,politico,reuters,the-hill,the-washington-post,time,vice-news&apiKey=${apiKey}`,
           );
     Article.fetchAllSaved()
       .then((articles) => {
@@ -68,6 +68,7 @@ async function getNews(params, res, filters, tags) {
             el.description,
             el.url,
             el.urlToImage,
+            el.publishedAt,
             tags,
           );
           if (
@@ -75,7 +76,7 @@ async function getNews(params, res, filters, tags) {
               return e.title === article.title;
             }).length > 0
           ) {
-            console.log('article in db ');
+            console.log('article in db');
           } else article.save();
         });
       })
