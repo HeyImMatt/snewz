@@ -32,6 +32,7 @@ Main Screen
 Before you begin, ensure you have met the following requirements:
 * You have an Internet browser (Chrome, Firefox, Safari, etc)
 * You have a code editor (VS Code, Atom, etc)
+* You have [nodejs](https://nodejs.org/en/) installed
 
 ## Installing Snewzzz
 
